@@ -1,5 +1,5 @@
 # AutoTestWeb
-Automated testing framework for a Web Application done as a group of 4.
+Automated testing framework for a Web Application done as a group of 4 in a Collaboration Project Class.
 
 # Description
 It uses Selenium Web Driver to carry our E2E testing of an ecommerce website called SurfLabs. Various functionalities are tested such as logging in, adding items to cart et cetera. It validates that certain elements are present and performs actions based on specific conditions.
@@ -31,3 +31,6 @@ Used Allure. Commands used to generate report:
 - Selenium and Pytest
 - Allure
 - Test Browsers Chrome, Edge, Firefox
+
+# Future integrations
+A CI-CD pipeline to generate reports automatically when pushing code to GitHub
