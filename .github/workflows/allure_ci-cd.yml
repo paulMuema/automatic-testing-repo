@@ -1,0 +1,56 @@
+name: CI/CD Pipeline for Swag Labs Testing
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Run tests with Selenium and store the results
+      - name: Run tests with Selenium
+        run: |
+          pytest --alluredir=allure-results
+
+      # Step 5: Install Allure Command Line Tool via npm
+      - name: Install Allure Command Line Tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nodejs npm
+          sudo npm install -g allure-commandline --save-dev
+
+      # Step 6: Generate Allure report
+      - name: Generate Allure report
+        run: |
+          allure generate allure-results -o allure-report --clean
+
+      # Step 7: Upload Allure report as an artifact
+      - name: Upload Allure report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: allure-report
+
+
